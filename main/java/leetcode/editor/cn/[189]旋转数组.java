@@ -31,7 +31,40 @@ package leetcode.editor.cn;//给定一个数组，将数组中的元素向右移
 //leetcode submit region begin(Prohibit modification and deletion)
 class RotateArray {
     public void rotate(int[] nums, int k) {
+        //方法一
+        //for (int i = 0; i < k; i++) {
+        //    int temp = nums[nums.length-1];
+        //    for (int j = nums.length - 1; j > 0; j--) {
+        //        nums[j] = nums[j-1];
+        //    }
+        //    nums[0] = temp;
+        //}
+        //方法二，使用反转
+        //反转全部元素，再反转前k部分，最后返回后k部分
+        k %= nums.length;
+        reverse(nums, 0, nums.length-1);
+        reverse(nums, 0, k-1);
+        reverse(nums, k, nums.length-1);
 
+
+    }
+
+    private void reverse(int[] nums,int start,int end){
+        while (start < end){
+            int temp = nums[start];
+            nums[start] = nums[end];
+            nums[end] = temp;
+            start++;
+            end--;
+        }
+
+    }
+
+
+    public static void main(String[] args) {
+        int[] nums = {-1};
+        new RotateArray().rotate(nums,2);
+        System.out.println();
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
