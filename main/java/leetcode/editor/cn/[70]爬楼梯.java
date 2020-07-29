@@ -28,6 +28,12 @@ package leetcode.editor.cn;//假设你正在爬楼梯。需要 n 阶你才能到
 //leetcode submit region begin(Prohibit modification and deletion)
 class ClimbStairs {
     public int climbStairs(int n) {
+        //1、递归解法
+        //if (n <= 2) {
+        //    return n;
+        //}
+        //return climbStairs(n - 1) + climbStairs(n - 2);
+        //2、空间换时间解法
         if(n <= 2){
             return n;
         }
