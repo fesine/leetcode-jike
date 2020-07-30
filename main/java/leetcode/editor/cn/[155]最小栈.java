@@ -63,7 +63,8 @@ class MinStack {
         //if (minData.isEmpty() || x <= minData.peek()) {
         //    minData.push(x);
         //}
-        if (min == null) {
+        //当初始化或栈为空时，直接赋值最小值
+        if (min == null || data.isEmpty()) {
             min = x;
         }else  if (x <= min) {
             //保存前面最小值
@@ -79,7 +80,7 @@ class MinStack {
             return;
         }
         //如果弹出的是最小值，将最小值下面一个元素弹出为当前最小值
-        if (data.pop().equals(min)) {
+        if (data.pop().equals(min) && !data.isEmpty()) {
             min = data.pop();
         }
         //if (data.pop().equals(minData.peek())) {
@@ -98,14 +99,41 @@ class MinStack {
         return min;
     }
 
+    /**
+     * ["MinStack","push","push","push","top","pop","getMin","pop","getMin","pop","push","top",
+     * "getMin","push","top","getMin","pop","getMin"]
+     * [[],[2147483646],[2147483646],[2147483647],[],[],[],[],[],[],[2147483647],[],[],
+     * [-2147483648],[],[],[],[]]
+     *
+     * ["MinStack","push","push","push","top","pop","getMin","pop","getMin","pop","push","top",
+     * "getMin","push","top","getMin","pop","getMin"]
+     * [[],[2147483646],[2147483646],[2147483647],[],[],[],[],[],[],[2147483647],[],[],
+     * [-2147483648],[],[],[],[]]
+     * [null,null,null,null,2147483647,null,2147483646,null,2147483646,null,null,2147483647,
+     * 2147483646,null,-2147483648,-2147483648,null,2147483646]
+     *
+     * [null,null,null,null,2147483647,null,2147483646,null,2147483646,null,null,2147483647,
+     * 2147483647,null,-2147483648,-2147483648,null,2147483647]
+     * @param args
+     */
     public static void main(String[] args) {
         MinStack main = new MinStack();
-        main.push(-2);
-        main.push(0);
-        main.push(-3);
+        main.push(2147483646);
+        main.push(2147483646);
+        main.push(2147483647);
+        System.out.println(main.top());
+        main.pop();
         System.out.println(main.getMin());
         main.pop();
+        System.out.println(main.getMin());
+        main.pop();
+        main.push(2147483647);
         System.out.println(main.top());
+        System.out.println(main.getMin());
+        main.push(-2147483648);
+        System.out.println(main.top());
+        System.out.println(main.getMin());
+        main.pop();
         System.out.println(main.getMin());
     }
 }
