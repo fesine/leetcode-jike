@@ -47,33 +47,49 @@ package leetcode.editor.cn;
  * }
  */
 class IsValidBST {
+    //临时变量存放前一节点值
+    private Long pre = Long.MIN_VALUE;
     public boolean isValidBST(TreeNode root) {
-        return helper(root,null,null);
-
-    }
-
-    private boolean helper(TreeNode root, Integer left, Integer right) {
-        //退出条件
-        if(root == null){
+        //return helper(root,null,null);
+        //2.使用中序遍历
+        if (root == null) {
             return true;
         }
-        int val = root.val;
-        if (left != null && val <= left) {
+        if (!isValidBST(root.left)) {
             return false;
         }
-        if (right != null && val >= right) {
+        //如果当前节点的值小于等于前一节点的值，即说明不满足BST
+        if (root.val <= pre) {
             return false;
         }
-        //将自己的节点当作根节点带入到下一次递归里面进行比较
-        if (!helper(root.left, left, val)) {
-            return false;
-        }
-        if (!helper(root.right, val, right)) {
-            return false;
-        }
-        return true;
+        pre = Long.valueOf(root.val);
+
+        return isValidBST(root.right);
 
     }
+
+    //private boolean helper(TreeNode root, Integer left, Integer right) {
+    //    //退出条件
+    //    if(root == null){
+    //        return true;
+    //    }
+    //    int val = root.val;
+    //    if (left != null && val <= left) {
+    //        return false;
+    //    }
+    //    if (right != null && val >= right) {
+    //        return false;
+    //    }
+    //    //将自己的节点当作根节点带入到下一次递归里面进行比较
+    //    if (!helper(root.left, left, val)) {
+    //        return false;
+    //    }
+    //    if (!helper(root.right, val, right)) {
+    //        return false;
+    //    }
+    //    return true;
+    //
+    //}
 
     public static void main(String[] args) {
         TreeNode root = new TreeNode(3);
