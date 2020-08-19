@@ -28,7 +28,7 @@ class Combine {
     public List<List<Integer>> combine(int n, int k) {
         this.n = n;
         this.k = k;
-        _combine(1,new LinkedList<Integer>());
+        _combine(1,new LinkedList<>());
 
         return output;
     }
@@ -37,9 +37,13 @@ class Combine {
         if(curr.size() == k){
             output.add(new LinkedList<>(curr));
         }
+
         for (int i = first; i < n+1; i++) {
+            //做选择
             curr.add(i);
+            //回溯
             _combine(i + 1, curr);
+            //撤销选择
             curr.removeLast();
         }
 
