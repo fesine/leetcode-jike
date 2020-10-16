@@ -17,7 +17,7 @@ package leetcode.editor.cn;//给定一个数组 nums，编写一个函数将所�
 
 
 //leetcode submit region begin(Prohibit modification and deletion)
-class Solution {
+class MoveZeroes {
     public void moveZeroes(int[] nums) {
         int j = 0 ;
         for (int i = 0; i < nums.length; i++) {
@@ -49,7 +49,7 @@ class Solution {
 
     public static void main(String[] args) {
         int [] nums= {100, 1, 0, 3, 12};
-        new Solution().moveZeroes(nums);
+        new MoveZeroes().moveZeroes(nums);
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
