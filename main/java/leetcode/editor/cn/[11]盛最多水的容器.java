@@ -1,4 +1,5 @@
-package leetcode.editor.cn;//给你 n 个非负整数 a1，a2，...，an，每个数代表坐标中的一个点 (i, ai) 。在坐标内画 n 条垂直线，垂直线 i 的两个端点分别为 (i,
+package leetcode.editor.cn;//给你 n 个非负整数 a1，a2，...，an，每个数代表坐标中的一个点 (i, ai) 。在坐标内画 n 条垂直线，垂直线 i
+// 的两个端点分别为 (i,
 //ai) 和 (i, 0)。找出其中的两条线，使得它们与 x 轴共同构成的容器可以容纳最多的水。 
 //
 // 说明：你不能倾斜容器，且 n 的值至少为 2。 
@@ -24,6 +25,7 @@ class MaxArea {
     /**
      * 方法一，使用暴力破解法，遍历所有的面积，获取面积最大的
      * 方法二，从两边向中间进行收缩，然后进行高度对比。
+     *
      * @param height
      * @return
      */
@@ -37,8 +39,15 @@ class MaxArea {
         //}
         int i = 0, j = height.length - 1;
         while (i < j) {
-            area = height[i] < height[j] ? Math.max(area, (j - i) * height[i++]) : Math.max(area,
-                    (j - i) * height[j--]);
+            int h = Math.min(height[i], height[j]);
+            area = Math.max(area, (j - i) * h);
+            if (height[i] < height[j]) {
+                i++;
+            } else {
+                j--;
+            }
+            //area = height[i] < height[j] ? Math.max(area, (j - i) * height[i++]) : Math.max(area,
+            //        (j - i) * height[j--]);
         }
         return area;
     }

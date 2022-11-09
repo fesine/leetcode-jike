@@ -34,17 +34,27 @@ class ClimbStairs {
         //}
         //return climbStairs(n - 1) + climbStairs(n - 2);
         //2、空间换时间解法
-        if(n <= 2){
+        //if(n <= 2){
+        //    return n;
+        //}
+        //int[] c = new int[n+1];
+        //c[1]=1;
+        //c[2]=2;
+        //for (int i = 3; i <= n; i++) {
+        //    c [i] = c[i-2] + c[i-1];
+        //}
+        //return c[n];
+        // 第三种，不用数组
+        if (n <= 2) {
             return n;
         }
-        int[] c = new int[n+1];
-        c[1]=1;
-        c[2]=2;
+        int f1 = 1, f2 = 2, f3 = 3;
         for (int i = 3; i <= n; i++) {
-            c [i] = c[i-2] + c[i-1];
+            f3 = f2 + f1;
+            f1 = f2;
+            f2 = f3;
         }
-
-        return c[n];
+        return f3;
 
     }
 

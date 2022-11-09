@@ -42,7 +42,7 @@ class InorderTraversal {
         //    nums.addAll(inorderTraversal(root.right));
         //}
         //2.迭代实现 通过栈
-        Stack<TreeNode> stack = new Stack();
+        Stack<TreeNode> stack = new Stack<>();
         TreeNode cur = root;
         while (cur != null || !stack.isEmpty()) {
             while (cur != null) {
