@@ -54,26 +54,26 @@ class SolveNQueens {
                 board[i][j] = ".";
             }
         }
-        backtrack(board,0);
+        backtrack(board, 0);
         return res;
     }
 
     private void backtrack(String[][] board, int row) {
         //退出条件
-        if(board.length == row){
+        if (board.length == row) {
             res.add(getStrings(board));
             return;
         }
         int n = board[row].length;
         for (int col = 0; col < n; col++) {
             //排除不合法的选择
-            if(!isValid(board,row,col)){
+            if (!isValid(board, row, col)) {
                 continue;
             }
             //选择
             board[row][col] = "Q";
             //下转
-            backtrack(board,row+1);
+            backtrack(board, row + 1);
             //取消选择
             board[row][col] = ".";
         }
@@ -83,13 +83,14 @@ class SolveNQueens {
         List<String> sub = new ArrayList<>();
         for (int i = 0; i < board.length; i++) {
             String s = Arrays.toString(board[i]).replace(",", "");
-            sub.add(s.substring(1,s.length()-1));
+            sub.add(s.substring(1, s.length() - 1));
         }
         return sub;
     }
 
     /**
      * 判断是否合法
+     *
      * @param board
      * @param row
      * @param col
@@ -99,19 +100,19 @@ class SolveNQueens {
         int n = board.length;
         //检查列是否有Q
         for (int i = 0; i < n; i++) {
-            if (board[i][col].equals("Q")) {
+            if ("Q".equals(board[i][col])) {
                 return false;
             }
         }
         //检查右上方是否有Q
-        for (int i =row -1,j=col+1; i>=0 && j< n ;i--,j++) {
-            if (board[i][j].equals("Q")) {
+        for (int i = row - 1, j = col + 1; i >= 0 && j < n; i--, j++) {
+            if ("Q".equals(board[i][j])) {
                 return false;
             }
         }
         //检查左上方是否有Q
-        for (int i =row -1,j=col-1; i>=0 && j>=0 ;i--,j--) {
-            if (board[i][j].equals("Q")) {
+        for (int i = row - 1, j = col - 1; i >= 0 && j >= 0; i--, j--) {
+            if ("Q".equals(board[i][j])) {
                 return false;
             }
         }
