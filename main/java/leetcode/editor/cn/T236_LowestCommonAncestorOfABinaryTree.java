@@ -72,7 +72,7 @@ public class T236_LowestCommonAncestorOfABinaryTree{
         r2.right = r4;
         r1.left = l0;
         r1.right = r8;
-        solution.lowestCommonAncestor(root,l5,r4);
+        System.out.println(solution.lowestCommonAncestor(root, l5, r4).val);
         // TO TEST
     }
     //leetcode submit region begin(Prohibit modification and deletion)
@@ -90,47 +90,68 @@ class Solution {
         Map<Integer, ParentNode> map = new HashMap<>();
         map.put(root.val, null);
         fillMap(map,root);
+        // 取出p和q在map中的节点
         ParentNode p1 = map.get(p.val);
         ParentNode q1 = map.get(q.val);
-        LinkedList<TreeNode> stack1 = new LinkedList<>();
-        stack1.add(p);
-        LinkedList<TreeNode> stack2 = new LinkedList<>();
-        stack2.add(q);
+        // 分别存放两个节点的父节点
+        LinkedList<TreeNode> deque1 = new LinkedList<>();
+        deque1.add(p);
+        LinkedList<TreeNode> deque2 = new LinkedList<>();
+        deque2.add(q);
         while (p1 != null) {
-            stack1.add(p1.parent);
+            // 添加p的父节点，层级越高的父节点，越在前面
+            deque1.addFirst(p1.parent);
+            // 再从map中取出p1的父节点node
             p1 = map.get(p1.parent.val);
         }
         while (q1 != null) {
-            stack2.add(q1.parent);
+            deque2.addFirst(q1.parent);
             q1 = map.get(q1.parent.val);
         }
-        int min = Math.min(stack1.size(), stack2.size());
-        while (stack1.size() > min) {
-            stack1.removeFirst();
+        int min = Math.min(deque1.size(), deque2.size());
+        // 保证数量相同，从下往上删除多余的节点，size小的节点肯定在上面
+        while (deque1.size() > min) {
+            deque1.removeLast();
         }
-        while (stack2.size() > min) {
-            stack2.removeFirst();
+        while (deque2.size() > min) {
+            deque2.removeLast();
         }
-        while (stack1.getFirst() != stack2.getFirst()) {
-            stack1.removeFirst();
-            stack2.removeFirst();
+        while (deque1.getLast() != deque2.getLast()) {
+            deque1.removeLast();
+            deque2.removeLast();
         }
-        return stack1.getFirst();
+        return deque1.getLast();
     }
 
+    /**
+     * 将所有节点添加到map中
+     * @param map
+     * @param root
+     */
     private void fillMap(Map<Integer, ParentNode> map, TreeNode root) {
+        // 填充左节点map
         if (root.left != null) {
             map.put(root.left.val, new ParentNode(root.left.val, root));
             fillMap(map,root.left);
         }
+        // 填充右节点map
         if (root.right != null) {
             map.put(root.right.val, new ParentNode(root.right.val, root));
             fillMap(map,root.right);
         }
     }
 
+    /**
+     * 定义包含父节点属性的类
+     */
     class ParentNode {
+        /**
+         * 当前值
+         */
         int val;
+        /**
+         * 父节点
+         */
         TreeNode parent;
 
         public ParentNode(int val, TreeNode parent) {
